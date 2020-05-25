@@ -27,16 +27,14 @@ const logGame = async (whisper) => {
     whisperGameLogger.logFirstWhisperOfGame(whisper);
   }
 
-  if (isSenderTheLast(whisper.sentFromId, whisper.whisperRecipients)){
+  if (isSenderTheLast(whisper.sentFromId, whisper.whisperRecipients)) {
     await whisperGameLogger.logLastWhisperOfGame(whisper);
   }
-
 };
 
 const isSenderTheLast = (sentFromId, whisperRecipients) => {
-    return (
-        sentFromId == Math.max(...whisperRecipients.map((w) => w.id)));
-} 
+  return sentFromId == Math.max(...whisperRecipients.map((w) => w.id));
+};
 
 const isNextRecipientTheLast = (whisper) => {
   return (

@@ -3,6 +3,8 @@ AWS.config.update({
   region: "eu-west-2",
 });
 
+//const GAMES_TABLENAME = 'Games';
+
 const putGame = (game) => {
   put("Games", game);
 };
@@ -20,6 +22,22 @@ const getGame = async (gameId) => {
     var res = await docClient.get(params).promise();
 
     return res.Item;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+
+const getAllGames = async () => {
+  try {
+    var docClient = new AWS.DynamoDB.DocumentClient();
+    var res = await docClient
+      .scan({
+        TableName: 'Games',
+      })
+      .promise();
+
+    return res.Items;
   } catch (err) {
     console.log(err);
     throw err;
@@ -45,3 +63,4 @@ const put = (tableName, item) => {
 
 exports.putGame = putGame;
 exports.getGame = getGame;
+exports.getAllGames  = getAllGames;
