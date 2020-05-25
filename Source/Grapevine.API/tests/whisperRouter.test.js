@@ -12,7 +12,7 @@ afterEach(() => {
   axios.post.mockReset();
 });
 
-describe("/whipser", () => {
+describe("/whisper", () => {
   it("should shoud return 200 OK", async () => {
     var whisper = {
       gameId: 1,
@@ -32,17 +32,17 @@ describe("/whipser", () => {
     expect(res.statusCode).toEqual(200);
   });
 
-  it("calls the next whishper recipient", async () => {
+  it("calls url of the next whishper recipient", async () => {
     var nextWhisperRecipientUrl = "https://someurl2.com/whisper";
     var whisper = {
       gameId: 1,
-      message: "",
-      sentFromId: -1,
+      message: "test end",
+      sentFromId: 1 ,
       nextWhisperRecipientId: 1,
       whisperRecipients: [
         {
           id: 0,
-          url: "https://someurl.com/whisper",
+          url: "https://myurl.com/",
         },
         {
           id: 1,
