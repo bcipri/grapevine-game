@@ -3,45 +3,35 @@ AWS.config.update({
   region: "eu-west-2",
 });
 
-//const GAMES_TABLENAME = 'Games';
+const GAMES_TABLENAME = 'Games';
 
 const putGame = (game) => {
-  put("Games", game);
+  put(GAMES_TABLENAME, game);
 };
 
 const getGame = async (gameId) => {
-  try {
-    const params = {
-      TableName: "Games",
-      Key: {
-        gameId: gameId,
-      },
-    };
+  const params = {
+    TableName: GAMES_TABLENAME,
+    Key: {
+      gameId: gameId,
+    },
+  };
 
-    const docClient = new AWS.DynamoDB.DocumentClient();
-    const res = await docClient.get(params).promise();
+  const docClient = new AWS.DynamoDB.DocumentClient();
+  const res = await docClient.get(params).promise();
 
-    return res.Item;
-  } catch (err) {
-    console.log(err);
-    throw err;
-  }
+  return res.Item;
 };
 
 const getAllGames = async () => {
-  try {
-    const docClient = new AWS.DynamoDB.DocumentClient();
-    const res = await docClient
-      .scan({
-        TableName: 'Games',
-      })
-      .promise();
+  const docClient = new AWS.DynamoDB.DocumentClient();
+  const res = await docClient
+    .scan({
+      TableName: GAMES_TABLENAME,
+    })
+    .promise();
 
-    return res.Items;
-  } catch (err) {
-    console.log(err);
-    throw err;
-  }
+  return res.Items;
 };
 
 const put = (tableName, item) => {
@@ -63,4 +53,4 @@ const put = (tableName, item) => {
 
 exports.putGame = putGame;
 exports.getGame = getGame;
-exports.getAllGames  = getAllGames;
+exports.getAllGames = getAllGames;

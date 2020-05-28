@@ -1,5 +1,5 @@
-var router = require("express").Router();
-var messageMisinterpreter = require("../services/messageMisinterpreter");
+const router = require("express").Router();
+const messageMisinterpreter = require("../services/messageMisinterpreter");
 
 router.post("/", async function (req, res) {
   try {

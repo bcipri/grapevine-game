@@ -38,8 +38,8 @@ describe("/whisper", () => {
     const whisper = {
       gameId: 1,
       message: "test end",
-      sentFromId: 1 ,
-      nextWhisperRecipientId: 1,
+      sentFromId: 0,
+      nextWhisperRecipientId: 2,
       whisperRecipients: [
         {
           id: 0,
@@ -47,6 +47,10 @@ describe("/whisper", () => {
         },
         {
           id: 1,
+          url: "https://myurl.com/",
+        },
+        {
+          id: 2,
           url: nextWhisperRecipientUrl,
         },
       ],

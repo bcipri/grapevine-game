@@ -4,25 +4,27 @@ const whisperServie = require("../services/whisperService");
 
 router.post("/", async (req, res) => {
   try {
-    var whisper = req.body;
-
+    const whisper = req.body;
     await whisperServie.logGame(whisper);
 
-    var newWhisper = whisperServie.getNewWhisper(whisper);
-    var nextRecipientUrl = whisperServie.getNextRecipientUrl(
+    if (whisperServie.isSenderTheLast(whisper.sentFromId,whisper.whisperRecipients)){
+      res.status(200).send();  
+      return;
+    }
+
+    const newWhisper = await whisperServie.getNewWhisper(whisper);
+    const nextRecipientUrl = whisperServie.getNextRecipientUrl(
       whisper.nextWhisperRecipientId,
       whisper.whisperRecipients
     );
 
-    axios
-      .post(nextRecipientUrl, newWhisper)
-      .then(function (response) {
-        res.status(200).send("OK");
-      })
-      .catch(function (error) {
-        console.log(error);
-        res.status(500).send(error);
-      });
+    console.log(`Forwarding to ${nextRecipientUrl}`);
+    console.log(newWhisper);
+
+    await axios.post(nextRecipientUrl, newWhisper);
+   
+    res.status(200).send();
+
   } catch (err) {
     res.status(500).send(err);
   }

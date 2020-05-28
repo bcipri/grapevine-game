@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node start.js",
+    "start-chain": "node start-chain.js",
     "test": "jest",
     "test:watch": "jest --watch"
   },

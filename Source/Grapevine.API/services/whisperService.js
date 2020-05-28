@@ -1,7 +1,7 @@
 const messageMisinterpreter = require("./messageMisinterpreter");
 const whisperGameLogger = require("./whisperGameLogger");
 
-const getNewWhisper = (whisper) => {
+const getNewWhisper = async (whisper) => {
   let newWhisper = { ...whisper };
 
   newWhisper.sentFromId++;
@@ -11,7 +11,7 @@ const getNewWhisper = (whisper) => {
     newWhisper.nextWhisperRecipientId = 0;
   }
 
-  newWhisper.message = messageMisinterpreter.misinterpretMessage(
+  newWhisper.message = await messageMisinterpreter.misinterpretMessage(
     whisper.message
   );
 
@@ -44,5 +44,6 @@ const isNextRecipientTheLast = (whisper) => {
 };
 
 exports.getNewWhisper = getNewWhisper;
+exports.isSenderTheLast = isSenderTheLast;
 exports.getNextRecipientUrl = getNextRecipientUrl;
 exports.logGame = logGame;

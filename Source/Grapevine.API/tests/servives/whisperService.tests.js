@@ -1,8 +1,8 @@
 const whisperService = require("../../services/whisperService");
 
 describe("getNewWhisper", () => {
-  it("increases sentFromId by 1", () => {
-    var whisper = {
+  it("increases sentFromId by 1", async () => {
+    const whisper = {
       gameId: 1,
       message: "",
       sentFromId: 2,
@@ -10,13 +10,13 @@ describe("getNewWhisper", () => {
       whisperRecipients: [{}],
     };
 
-    res = whisperService.getNewWhisper(whisper);
+    res = await whisperService.getNewWhisper(whisper);
 
     expect(res.sentFromId).toEqual(3);
   });
 
-  it("increases nextWhisperRecipientId by 1", () => {
-    var whisper = {
+  it("increases nextWhisperRecipientId by 1", async () => {
+    const whisper = {
       gameId: 1,
       message: "",
       sentFromId: 2,
@@ -24,13 +24,13 @@ describe("getNewWhisper", () => {
       whisperRecipients: [{}],
     };
 
-    res = whisperService.getNewWhisper(whisper);
+    res = await whisperService.getNewWhisper(whisper);
 
     expect(res.nextWhisperRecipientId).toEqual(2);
   });
 
-  it("sets nextWhisperRecipientId to 0 when penultimate recipient", () => {
-    var whisper = {
+  it("sets nextWhisperRecipientId to 0 when penultimate recipient", async () => {
+    const whisper = {
       gameId: 1,
       message: "",
       sentFromId: 1,
@@ -55,7 +55,7 @@ describe("getNewWhisper", () => {
       ],
     };
 
-    res = whisperService.getNewWhisper(whisper);
+    res = await whisperService.getNewWhisper(whisper);
 
     expect(res.nextWhisperRecipientId).toEqual(0);
   });

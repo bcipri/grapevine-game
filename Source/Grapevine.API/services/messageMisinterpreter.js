@@ -3,6 +3,10 @@ const _ = require("lodash");
 const numWords = require("num-words");
 
 const misinterpretMessage = async (message) => {
+  if (!message) {
+    return "";
+  }
+
   message = replaceNumbersWithWords(message);
 
   for (const word of _.words(message)) {
@@ -28,10 +32,11 @@ const replaceNumbersWithWords = (message) => {
 
 const getSimilarWord = async (word) => {
   try {
-    const res = await axios.get(`https://api.datamuse.com/words?rel_rhy=${escape(word)}`);
+    const res = await axios.get(
+      `https://api.datamuse.com/words?rel_rhy=${escape(word)}`
+    );
 
-    if (!res.data.length)
-        return word;
+    if (!res.data.length) return word;
 
     const wordResults = res.data;
     let wordIndex = _.random(0, Math.min(wordResults.length - 1, 3));
