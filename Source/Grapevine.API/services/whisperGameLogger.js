@@ -12,7 +12,6 @@ logFirstWhisperOfGame = (whisper) => {
 
 logLastWhisperOfGame = async (whisper) => {
   var game = await db.getGame(whisper.gameId);
-  console.log(game);
 
   var finishedGame = { ...game };
   finishedGame.endMessage = whisper.message;

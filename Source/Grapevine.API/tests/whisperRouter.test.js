@@ -6,6 +6,7 @@ jest.mock("axios");
 
 beforeEach(() => {
   axios.post.mockResolvedValue("ok");
+  axios.get.mockResolvedValue({data:[]});
 });
 
 afterEach(() => {
