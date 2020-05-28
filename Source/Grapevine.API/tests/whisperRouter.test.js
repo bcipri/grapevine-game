@@ -61,5 +61,6 @@ describe("/whisper", () => {
 
     const requestUrl = axios.post.mock.calls[0][0];
     expect(requestUrl).toEqual(nextWhisperRecipientUrl);
+    
   });
 });

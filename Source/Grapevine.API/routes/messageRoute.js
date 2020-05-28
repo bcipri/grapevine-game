@@ -6,7 +6,8 @@ router.post("/", async function (req, res) {
     let msg = await messageMisinterpreter.misinterpretMessage(req.body.message);
     res.json(msg);
   } catch (err) {
-      res.status(500).send(err);
+    console.log(err);
+    res.status(500).send(err);
   }
 });
 

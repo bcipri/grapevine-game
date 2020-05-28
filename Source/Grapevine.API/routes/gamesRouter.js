@@ -6,6 +6,7 @@ router.get("/", async function (req, res) {
     const games = await gameService.getAllGames();
     res.send(games);
   } catch (err) {
+    console.log(err);
     res.status(500).send(err);
   }
 });

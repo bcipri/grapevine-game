@@ -9,12 +9,12 @@ const misinterpretMessage = async (message) => {
 
   message = replaceNumbersWithWords(message);
 
-  for (const word of _.words(message)) {
-    if (word.length > 1 && Math.random() > 0.7) {
-      let misinterpretedWord = await getSimilarWord(word);
-      message = message.replace(word, misinterpretedWord);
-    }
-  }
+  const words =  _.filter(_.words(message), (w) => canWordBeReplaced(w));
+
+  const wordToReplace = _.sample(words);
+  const misinterpretedWord = await getSimilarWord(wordToReplace);
+  
+  message = message.replace(wordToReplace, misinterpretedWord);
 
   return message.charAt(0).toUpperCase() + message.slice(1);
 };
@@ -47,5 +47,9 @@ const getSimilarWord = async (word) => {
     throw err;
   }
 };
+
+const canWordBeReplaced  = (word) => {
+  return !['for','and','nor','or','but','yet','so','the','a','an'].includes(word.toLowerCase());
+}
 
 exports.misinterpretMessage = misinterpretMessage;

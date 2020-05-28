@@ -10,6 +10,7 @@ router.get("/:id", async function (req, res) {
       res.status(404).send("Game not found");
     }
   } catch (err) {
+    console.log(err);
     res.status(500).send(err);
   }
 });
