@@ -12,12 +12,20 @@ router.post("/", async (req, res) => {
       return;
     }
 
-    const newWhisper = await whisperServie.getNewWhisper(whisper);
     const nextRecipientUrl = whisperServie.getNextRecipientUrl(
       whisper.nextWhisperRecipientId,
       whisper.whisperRecipients
     );
 
+    if (!nextRecipientUrl){
+      console.log("No recipent url was found.");
+      res.status(200).send("Whisper was not forwarded as no next recipient url could be found.");
+
+      return;
+    }
+
+    const newWhisper = await whisperServie.getNewWhisper(whisper);
+    
     console.log(`Forwarding to ${nextRecipientUrl}`);
     console.log(newWhisper);
 

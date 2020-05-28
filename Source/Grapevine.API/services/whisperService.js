@@ -19,7 +19,12 @@ const getNewWhisper = async (whisper) => {
 };
 
 const getNextRecipientUrl = (nextRecipientId, recipients) => {
-  return recipients.filter((rec) => rec.id == nextRecipientId)[0].url;
+  const nextRecipient = recipients.filter(
+    (rec) => rec.id == nextRecipientId)[0];
+  
+  if (nextRecipient) {
+    return nextRecipient.url;
+  }
 };
 
 const logGame = async (whisper) => {
@@ -33,6 +38,10 @@ const logGame = async (whisper) => {
 };
 
 const isSenderTheLast = (sentFromId, whisperRecipients) => {
+  if (sentFromId == -1) {
+    return false;
+  }
+
   return sentFromId == Math.max(...whisperRecipients.map((w) => w.id));
 };
 
