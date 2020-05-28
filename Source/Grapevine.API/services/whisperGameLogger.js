@@ -1,7 +1,7 @@
 const db = require("../infrastructure/db");
 
 logFirstWhisperOfGame = (whisper) => {
-  var game = {
+  const game = {
     gameId: whisper.gameId,
     gameStarted: new Date().toISOString(),
     startingMessage: whisper.message,
@@ -11,9 +11,9 @@ logFirstWhisperOfGame = (whisper) => {
 };
 
 logLastWhisperOfGame = async (whisper) => {
-  var game = await db.getGame(whisper.gameId);
+  const game = await db.getGame(whisper.gameId);
 
-  var finishedGame = { ...game };
+  const finishedGame = { ...game };
   finishedGame.endMessage = whisper.message;
   finishedGame.gameEnded = new Date().toISOString();
 

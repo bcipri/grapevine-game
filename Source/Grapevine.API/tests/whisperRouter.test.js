@@ -15,7 +15,7 @@ afterEach(() => {
 
 describe("/whisper", () => {
   it("should shoud return 200 OK", async () => {
-    var whisper = {
+    const whisper = {
       gameId: 1,
       message: "",
       sentFromId: 2,
@@ -34,8 +34,8 @@ describe("/whisper", () => {
   });
 
   it("calls url of the next whishper recipient", async () => {
-    var nextWhisperRecipientUrl = "https://someurl2.com/whisper";
-    var whisper = {
+    const nextWhisperRecipientUrl = "https://someurl2.com/whisper";
+    const whisper = {
       gameId: 1,
       message: "test end",
       sentFromId: 1 ,
@@ -53,9 +53,9 @@ describe("/whisper", () => {
     };
 
     // Act
-    const res = await request(app).post("/whisper").send(whisper);
+    await request(app).post("/whisper").send(whisper);
 
-    var requestUrl = axios.post.mock.calls[0][0];
+    const requestUrl = axios.post.mock.calls[0][0];
     expect(requestUrl).toEqual(nextWhisperRecipientUrl);
   });
 });

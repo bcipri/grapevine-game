@@ -1,4 +1,4 @@
-var AWS = require("aws-sdk");
+const AWS = require("aws-sdk");
 AWS.config.update({
   region: "eu-west-2",
 });
@@ -11,15 +11,15 @@ const putGame = (game) => {
 
 const getGame = async (gameId) => {
   try {
-    var params = {
+    const params = {
       TableName: "Games",
       Key: {
         gameId: gameId,
       },
     };
 
-    var docClient = new AWS.DynamoDB.DocumentClient();
-    var res = await docClient.get(params).promise();
+    const docClient = new AWS.DynamoDB.DocumentClient();
+    const res = await docClient.get(params).promise();
 
     return res.Item;
   } catch (err) {
@@ -30,8 +30,8 @@ const getGame = async (gameId) => {
 
 const getAllGames = async () => {
   try {
-    var docClient = new AWS.DynamoDB.DocumentClient();
-    var res = await docClient
+    const docClient = new AWS.DynamoDB.DocumentClient();
+    const res = await docClient
       .scan({
         TableName: 'Games',
       })
@@ -45,12 +45,12 @@ const getAllGames = async () => {
 };
 
 const put = (tableName, item) => {
-  var params = {
+  const params = {
     TableName: tableName,
     Item: item,
   };
 
-  var docClient = new AWS.DynamoDB.DocumentClient();
+  const docClient = new AWS.DynamoDB.DocumentClient();
   docClient.put(params, function (err, data) {
     if (err) {
       console.error(
